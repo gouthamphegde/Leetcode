@@ -1,37 +1,33 @@
 class Solution {
 public:
-    int f(int i , int j , vector<vector<int>> & triangle,vector<vector<int>> &dp){
-        if(j > dp[0].size() - 1){
-            return 1e9;
-        }
-        if(i == triangle.size() - 1){
-            return triangle[i][j];
-        }
-        
-        if(dp[i][j]!=-1e9){
-            return dp[i][j];
-        }
-        
-        int down = triangle[i][j]+f(i+1,j,triangle,dp);
-        int left = triangle[i][j]+f(i+1,j+1,triangle,dp);
-        
-        return dp[i][j] = min(down,left);
-        
-    }
+    
     int minimumTotal(vector<vector<int>>& triangle) {
         
-        //fixed start and variable ending
+        int n = triangle.size();
         
-        int m = triangle.size();
-        int n = triangle[m-1].size();
-        
-        vector<vector<int>> dp(m,vector<int>(n,-1e9));
-                               
-        return f(0,0,triangle,dp);
-                               
+       vector<int> front(n,0), cur(n,0);
+    
+    for(int j=0;j<n;j++){
+        front[j] = triangle[n-1][j];
+    }
+    
+    for(int i=n-2; i>=0; i--){
+        for(int j=i; j>=0; j--){
+            
+            int down = triangle[i][j]+front[j];
+            int diagonal = triangle[i][j]+front[j+1];
+            
+            cur[j] = min(down, diagonal);
+        }
+        front=cur;
+    }
+    
+    return front[0];
+    
 
         
         
         
     }
-};
+
+    };
