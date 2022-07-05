@@ -10,7 +10,7 @@ public:
         
         int longestStreak = 0;
         
-        for(auto num : nums){
+        for(auto num : HashSet){
             if(!HashSet.count(num-1)){
                 int currentNum = num;
                 int currentStreak = 1;
