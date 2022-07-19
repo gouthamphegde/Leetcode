@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+    // Revise
     vector<int> smallestTrimmedNumbers(vector<string>& a, vector<vector<int>>& quaries) {
         vector<int> ans;
         int n=a[0].size();
