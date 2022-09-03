@@ -11,26 +11,20 @@
  */
 class Solution {
 public:
-    
-    
-    void helper(TreeNode * root , int maxele , int & count){
-        if(root -> val >= maxele){
-            count++;
-            maxele = root -> val;
-        }
-        
-        if(root -> left){
-            helper(root -> left , maxele , count);
-        }
-        
-        if(root -> right){
-            helper(root -> right , maxele , count);
-        }
-    }
     int goodNodes(TreeNode* root) {
-        
-        int count = 0 , maxele = root-> val;
-        helper(root , maxele , count);
+         queue<pair<TreeNode*, int>> q; //<node, maxtill now>
+        q.push({root, root->val});
+        int count=0; 
+        while(!q.empty()){
+            auto [node, maxVal]=q.front();
+            q.pop();
+            if(node->val==maxVal)
+                count++;
+            if(node->left)
+                q.push({node->left, max(maxVal, node->left->val)});
+            if(node->right)
+                q.push({node->right, max(maxVal, node->right->val)});
+        }
         return count;
     }
 };
