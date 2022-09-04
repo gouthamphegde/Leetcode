@@ -11,44 +11,36 @@
  */
 class Solution {
 public:
-    vector<double> averageOfLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        q.push(NULL);
-        
-        long long sum = 0 , count = 0;
-        
-        vector<double> ans;
-        
-        while(!q.empty()){
-            TreeNode * temp = q.front();
-            q.pop();
-            
-            if(!temp){
-                ans.push_back(double(sum)/count);
-                sum = 0;
-                count = 0;
-                q.push(NULL);
-                if(!q.front()){
-                    break;
-                }
-                
-            }
-            else{
-                if(temp-> left){
-                    q.push(temp->left);
-                }
-                if(temp-> right){
-                    q.push(temp-> right);
-                }
-                
-                count++;
-                sum+=temp-> val;
-            }
+    
+    void helper(TreeNode* root , vector<double>& sums , vector<int> & counts , int l){
+        if(!root){
+            return;
+        }
+        if(sums.size() <= l){
+            sums.push_back(0);
+        }
+        if(counts.size() <= l){
+            counts.push_back(0);
         }
         
         
-        return ans;
+        sums[l]+=root -> val;
+        counts[l]++;
         
+            helper(root-> left , sums , counts , l+1);
+            helper(root-> right , sums , counts , l+1);
+    }
+    vector<double> averageOfLevels(TreeNode* root) {
+        vector<double> sums;
+        vector<int> counts;
+        
+        helper(root , sums , counts , 0);
+        
+        for(int i = 0 ; i < sums.size() ;i++){
+            sums[i]/=counts[i];
+        }
+        
+        
+        return sums;
     }
 };
