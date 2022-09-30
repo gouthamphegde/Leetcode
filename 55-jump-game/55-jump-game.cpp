@@ -1,18 +1,20 @@
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        int n = nums.size();
+        int idx = nums.size() - 1;
         
-        int max_reachable = 0;
-        
-        for(int i = 0;i<n;i++){
-             if(i > max_reachable){
-                return false ;
-            }else if(i + nums[i] > max_reachable){
-                max_reachable = i + nums[i];
+        for(int i =  nums.size() - 1 ; i >= 0 ;i--){
+            if(nums[i] + i >= idx){
+                idx = i;
             }
+        
         }
         
-        return true ;
+        if(idx == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 };
