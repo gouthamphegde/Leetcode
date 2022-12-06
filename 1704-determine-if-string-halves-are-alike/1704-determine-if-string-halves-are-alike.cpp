@@ -2,6 +2,7 @@
 using namespace std;
 class Solution {
 public:
+    // from middle just see both strings and count the vowels
     bool halvesAreAlike(string s) {
         int a=0; int b=0; int n= s.size();
         for (int i=0; i<n/2; i++){
