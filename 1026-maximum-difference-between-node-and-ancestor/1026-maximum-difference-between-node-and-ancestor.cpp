@@ -11,28 +11,19 @@
  */
 class Solution {
 public:
-    int maxVal(int a, int b)
-    {
-        return a>b?a:b;
-    }
-    
-    void maxDiff(TreeNode * root, int min, int max, int &maxdiff)
-    {
-        if(min>root->val)min = root->val;
-        if(max<root->val)max = root->val;
-        
-        int diff = maxVal(abs(root->val-min),abs(root->val-max));
-        if(diff>maxdiff)maxdiff = diff;
-        
-        if(root->left)maxDiff(root->left,min,max,maxdiff);
-        if(root->right)maxDiff(root->right,min,max,maxdiff);
+   int solve(TreeNode *root, int max_val, int min_val){
+        if(root == NULL)
+            return INT_MIN;
+        int res = max(abs(max_val - root->val), abs(min_val - root->val));
+        max_val = max(max_val, root->val);
+        min_val = min(min_val, root->val);
+        int left_res =  max(res, solve(root->left, max_val, min_val));
+        int right_res = max(res, solve(root->right, max_val, min_val));
+        return max(left_res, right_res);
     }
     
     int maxAncestorDiff(TreeNode* root) {
         
-        int maxdiff = INT_MIN;
-        maxDiff(root,root->val,root->val,maxdiff);
-        
-        return maxdiff;
+return max(solve(root->left, root->val, root->val), solve(root->right, root->val, root->val));        
     }
 };
