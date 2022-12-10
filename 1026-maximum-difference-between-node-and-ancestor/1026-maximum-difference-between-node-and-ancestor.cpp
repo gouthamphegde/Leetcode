@@ -31,7 +31,7 @@ public:
     int maxAncestorDiff(TreeNode* root) {
         
         int maxdiff = INT_MIN;
-        maxDiff(root,INT_MAX,INT_MIN,maxdiff);
+        maxDiff(root,root->val,root->val,maxdiff);
         
         return maxdiff;
     }
