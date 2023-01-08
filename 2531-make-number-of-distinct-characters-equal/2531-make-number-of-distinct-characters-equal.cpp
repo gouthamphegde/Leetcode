@@ -1,39 +1,48 @@
 class Solution {
 public:
-    bool isItPossible(string word1, string word2) {
+    int distinct(vector<int>&nums)
+    {
+        int ans = 0;
+        for(int i=0;i<26;i++)
+        {
+            if(nums[i]!=0) ans++;
+        }
+        //cout<<ans<<endl;
+        return ans;
+    }
+    
+    bool isItPossible(string word1, string word2)
+    {
+         vector<int>mp1(26,0),mp2(26,0);
+        
+        for(auto w:word1) mp1[w-'a']++;
+        for(auto w:word2) mp2[w-'a']++;
         
         
-        unordered_map<char,int> mp1,mp2;
-     //store unique char with frequency in map for both strings
-        for(char ch:word1) mp1[ch]++;
-        for(char ch:word2) mp2[ch]++;
-        
-        for(char i='a'; i<='z'; i++){
-
-            for(char j='a'; j<='z'; j++){
-               // if letters exist in word1 and word2
-              if(mp1.count(i) && mp2.count(j)){
+        for(int i=0;i<26;i++)
+        {
+            for(int j=0;j<26;j++)
+            {
+                if(mp1[i] && mp2[j])
+                {
+                    
                 
-                //swap i and j
-                if(--mp1[i]==0) mp1.erase(i);
+                mp1[i]--;
                 mp1[j]++;
-                if(--mp2[j]==0) mp2.erase(j);
                 mp2[i]++;
-               //check
-                if(mp1.size()==mp2.size()){
-                    return true;
+                mp2[j]--;
+                if(distinct(mp1)==distinct(mp2)) return true;
+                
+                mp1[i]++;
+                mp1[j]--;
+                mp2[i]--;
+                mp2[j]++;
+                    
                 }
-               //restore
-               if(--mp1[j]==0) mp1.erase(j);
-               mp1[i]++;
-               if(--mp2[i]==0) mp2.erase(i);
-               mp2[j]++;
-
-
-              }
             }
         }
-
+        
         return false;
+        
     }
 };
