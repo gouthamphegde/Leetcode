@@ -24,7 +24,6 @@ public:
         for(; i < intervals.size() ;i++){
             if(intervals[i][0] <= newInterval[0]){
                 ans.push_back(intervals[i]);
-                cout << intervals[i][0] << " " << intervals[i][1] << endl;
             }
             else{
                 break;
@@ -33,11 +32,9 @@ public:
         
         
         ans.push_back(newInterval);
-        cout << newInterval[0] << " " << newInterval[1] << endl;
         
         for(;i < intervals.size() ; i++){
             ans.push_back(intervals[i]);
-            cout << intervals[i][0] << " " << intervals[i][1] << endl;
 
             
         }
